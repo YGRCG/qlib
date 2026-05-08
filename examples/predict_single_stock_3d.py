@@ -31,13 +31,14 @@ from qlib.tests.data import GetData  # noqa: E402
 
 
 # -------- user-tunable parameters --------
-STOCK_CODE = "SH600000"
+STOCK_CODE = "SH600536"
 PROVIDER_URI = "~/.qlib/qlib_data/cn_data"
-MARKET = "csi300"
+# MARKET = "csi300"
+MARKET = "csi500"
 
-TRAIN_PERIOD = ("2008-01-01", "2014-12-31")
-VALID_PERIOD = ("2015-01-01", "2016-12-31")
-TEST_PERIOD = ("2017-01-01", "2020-08-01")
+TRAIN_PERIOD = ("2008-01-01", "2020-12-31")
+VALID_PERIOD = ("2021-01-01", "2021-12-31")
+TEST_PERIOD = ("2022-01-01", "2026-05-08")
 
 OUTPUT_DIR = "outputs"
 # -----------------------------------------
@@ -108,7 +109,7 @@ def evaluate_single_stock(stock: str, pred: pd.Series, label: pd.Series):
 
     df = pd.concat([pred_s.rename("pred"), label_s.rename("label_3d_return")], axis=1).dropna()
     if df.empty:
-        print(f"[warn] no overlapping (pred, label) rows for {stock}; it may not be in csi300 over the test window.")
+        print(f"[warn] no overlapping (pred, label) rows for {stock}; it may not be in {MARKET} over the test window.")
         return df
 
     pearson = df["pred"].corr(df["label_3d_return"])
